@@ -6,5 +6,6 @@ public class Browser {
 		System.out.println("Kandai Jyrgal");
 		System.out.println("Jakwy Makesh baike");
 		System.out.println("Hi Mira");
+		System.out.println("Topa good girl");
 	}
 }
