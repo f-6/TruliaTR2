@@ -5,5 +5,6 @@ public class Browser {
 		System.out.println("First code");
 		System.out.println("Kandai Jyrgal");
 		System.out.println("Jakwy Makesh baike");
+		System.out.println("Hi Mira");
 	}
 }
