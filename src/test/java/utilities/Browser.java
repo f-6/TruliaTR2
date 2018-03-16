@@ -8,5 +8,6 @@ public class Browser {
 		System.out.println("Kandai Jyrgal");
 		System.out.println("++++++++++++++++");
 		System.out.println("Dont Change Codes MF**kers");
+		System.out.println("f+++k man");
 	}
 }
