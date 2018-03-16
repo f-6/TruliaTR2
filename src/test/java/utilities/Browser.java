@@ -15,6 +15,7 @@ public class Browser {
 		System.out.println("My new chan");
 		System.out.println("dfgkfsdjgh");
 		System.out.println("Ulanbek's changes");
+		System.out.println("JAVA is FUN");
 
 	}
 }
