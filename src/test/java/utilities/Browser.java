@@ -7,6 +7,6 @@ public class Browser {
 		System.out.println("First code");
 		System.out.println("Kandai Jyrgal");
 		System.out.println("Makew changes");
-
+		System.out.println("tala comp");
 	}
 }
