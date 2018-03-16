@@ -7,14 +7,7 @@ public class Browser {
 		System.out.println("Jakwy Makesh baike");
 		System.out.println("Hi Mira");
 		System.out.println("Topa good girl");
-		
-		System.out.println("Real Champion");
-
-		System.out.println("MAYRAMBEK");	
-		System.out.println("TOPA p");
-		System.out.println("My new changes");
-		System.out.println("TAGAi");
-		System.out.println("AYBEK");
+		System.out.println("Dont change codes.. pull codes first and then push yuor own");
 
 	}
 }

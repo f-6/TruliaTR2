@@ -4,7 +4,7 @@
   <artifactId>TruliaTR2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>TruliaTR2</name>
-  
+  <!-- java 1.8 installations -->
   <properties>
   
   <maven.compiler.source>1.8</maven.compiler.source>
