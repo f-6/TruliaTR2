@@ -8,6 +8,6 @@ public class Browser {
 		System.out.println("Kandai Jyrgal");
 		System.out.println("Makew changes");
 		System.out.println("tala comp");
-		System.out.println("My name is Ulanbek");
+		System.out.println("Fantastic 6 is the Best of the best");
 	}
 }
