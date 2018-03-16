@@ -7,7 +7,6 @@ public class Browser {
 		System.out.println("First code");
 		System.out.println("Kandai Jyrgal");
 		System.out.println("++++++++++++++++");
-		
-		System.out.println("Last change");
+		System.out.println("Dont Change Codes MF**kers");
 	}
 }
