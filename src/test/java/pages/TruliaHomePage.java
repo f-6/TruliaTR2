@@ -1,5 +1,8 @@
 package pages;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,6 +38,12 @@ public class TruliaHomePage {
 	@Test
 	public void searchButtonExist() {
 		Assert.assertTrue(searchBtn.isDisplayed());
+	}
+	@Test
+	public void searchSuggestions() {
+		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
+		for(WebElement each : suggestion)
+		System.out.println(each.getText());
 	}
 	
 	

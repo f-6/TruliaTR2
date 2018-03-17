@@ -31,9 +31,29 @@ public class TruliaTest {
 		home.searchBox.sendKeys(Config.getProperty("city"));
 		home.searchBtn.click();
 		TruliaSearchPage search = new TruliaSearchPage(driver);
-		search.verifyTitleContainsCity();
+		search.verifyTitleContains(Config.getProperty("city"));
 	}
 	
-	
+	@Test(priority=2)
+	public void searchByZip() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage searchByZip = new TruliaHomePage(driver);
+		searchByZip.verifyTitle();
+		searchByZip.searchBoxIsDisplayed();
+		searchByZip.searchButtonExist();
+		searchByZip.searchBox.clear();
+		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
+		Browser.sleep(1);
+		searchByZip.searchSuggestions();
+		searchByZip.searchBtn.click();
+		TruliaSearchPage homeType = new TruliaSearchPage(driver);
+		Browser.sleep(1);
+		homeType.verifyTitleContains(Config.getProperty("tc2value"));
+		homeType.homeTypeToggle.click();
+		Browser.sleep(1);
+		homeType.homeTypeLand.click();
+		Browser.sleep(1);
+		homeType.verifyLocationContains(Config.getProperty("tc2value"));
+	}
 	
 }
