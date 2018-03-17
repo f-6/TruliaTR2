@@ -9,7 +9,7 @@ import pages.TruliaSearchPage;
 import utilities.Browser;
 import utilities.Config;
 
-public class TruliaHomeTest {
+public class TruliaTest {
 	protected WebDriver driver;
 	@BeforeClass
 	public void start() {
