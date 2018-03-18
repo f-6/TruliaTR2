@@ -1,5 +1,6 @@
 package pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -40,10 +41,20 @@ public class TruliaHomePage {
 		Assert.assertTrue(searchBtn.isDisplayed());
 	}
 	@Test
-	public void searchSuggestions() {
+	public void printSearchSuggestions() {
 		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
 		for(WebElement each : suggestion)
 		System.out.println(each.getText());
+	}
+	@Test
+	public void selectFromSearchSuggestions(String location){
+		List<WebElement> suggestions = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
+		for(WebElement each : suggestions) {
+			if(location.equals(each.getText())) {
+				each.click();
+				break;
+			}
+		}
 	}
 	
 	

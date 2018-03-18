@@ -21,6 +21,7 @@ public class Browser {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
 				driver.manage().timeouts().implicitlyWait(iWait, TimeUnit.SECONDS);
+			
 				return driver;
 			case "firefox":
 				WebDriverManager.firefoxdriver().setup();

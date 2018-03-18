@@ -25,7 +25,17 @@ private WebDriver driver;
 	public WebElement homeTypeToggle;
 	@FindBy(id="homeType4")
 	public WebElement homeTypeLand;
-
+	
+	@FindBy(id="dropdownBtn")
+	public WebElement searchBtn;
+	
+	@Test
+	public void verifyTitle(String title) {
+		Browser.sleep(1);
+		String expectedTitle = title;
+		Assert.assertEquals(driver.getTitle(), expectedTitle);
+	}
+	
 	@Test
 	public void verifyTitleContains(String location) {
 		Browser.sleep(1);
@@ -39,11 +49,12 @@ private WebDriver driver;
 			String expectedCity = location;
 			Assert.assertTrue(each.getText().contains(expectedCity));
 		}	
-		}
+	}
 	@Test
 	public void searchSuggestions() {
 		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
 		for(WebElement each : suggestion)
 		System.out.println(each.getText());
 	}
+	
 }
