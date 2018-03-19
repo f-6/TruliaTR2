@@ -41,6 +41,12 @@ public class TruliaHomePage {
 		Assert.assertTrue(searchBtn.isDisplayed());
 	}
 	@Test
+	public void searchSuggestions() {
+		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
+		for(WebElement each : suggestion)
+			System.out.println(each.getText());
+	}
+	@Test
 	public void printSearchSuggestions() {
 		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
 		for(WebElement each : suggestion)

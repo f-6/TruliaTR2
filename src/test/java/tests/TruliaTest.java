@@ -100,18 +100,22 @@ public class TruliaTest {
 		searchByZip.searchButtonExist();
 		searchByZip.searchBox.clear();
 		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
-		Browser.sleep(1);
-		searchByZip.printSearchSuggestions();
+		Browser.sleep(2);
+		searchByZip.searchSuggestions();
 		searchByZip.searchBtn.click();
 		TruliaSearchPage homeType = new TruliaSearchPage(driver);
 		Browser.sleep(1);
 		homeType.verifyTitleContains(Config.getProperty("tc2value"));
+		homeType.homeTypeToggleIsDisplayed();
 		homeType.homeTypeToggle.click();
 		Browser.sleep(1);
 		homeType.homeTypeLand.click();
-		Browser.sleep(1);
-		homeType.verifyLocationContains(Config.getProperty("tc2value"));
+		Browser.sleep(2);
+		String city = homeType.zipCity.getText();
+		homeType.verifyLocationContains(city);
+		homeType.verifyIfLand();
 	}
+
 	
 	
 	@Test(priority = 4)
