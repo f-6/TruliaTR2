@@ -141,5 +141,69 @@ public class TruliaTest {
 		Browser.sleep(3);
 		search.verifyBeds(Config.getProperty("tc4bed4"));
 	}
+
+	//TESTCASE-5
+		@Test(priority=5)
+		public void tc005(){
+			driver.get(Config.getProperty("url"));
+			TruliaHomePage testFive = new TruliaHomePage(driver);
+			TruliaSearchPage searchTestFive = new TruliaSearchPage(driver);
+			
+			testFive.searchBox.clear();
+			testFive.verifyTitle();
+			Browser.sleep(1);
+			testFive.searchBoxIsDisplayed();
+			testFive.searchButtonExist();
+			Browser.sleep(1);
+			testFive.searchBox.sendKeys(Config.getProperty("tc5value"));
+			Browser.sleep(1);
+			testFive.searchBtn.click();
+			searchTestFive.verifyTitleContains(Config.getProperty("tc5value"));
+			Browser.sleep(1);
+			searchTestFive.verifyLocationContains(Config.getProperty("tc5value"));
+			
+		}
+		
+		//TESTCASE-6
+		@Test(priority=6)
+		public void tc006() {
+			driver.get(Config.getProperty("url"));
+			TruliaHomePage testSix = new TruliaHomePage(driver);
+			TruliaSearchPage searchTestSix = new TruliaSearchPage(driver);
+			Browser.sleep(1);
+			
+			testSix.searchBox.clear();
+			testSix.verifyTitle();
+			Browser.sleep(1);
+			testSix.searchBoxIsDisplayed();
+			testSix.searchButtonExist();
+			Browser.sleep(1);
+			testSix.searchBox.sendKeys(Config.getProperty("tc6value"));
+			Browser.sleep(1);
+			testSix.selectFromSearchSuggestions(Config.getProperty("tc6value1"));
+			testSix.searchBtn.click();
+			Browser.sleep(1);
+			searchTestSix.verifyTitleContains(Config.getProperty("tc6value1"));
+			Browser.sleep(1);
+			searchTestSix.verifyLocationContains(Config.getProperty("tc6value1"));
+		}
+		
+		//TESTCASE-7
+				@Test(priority=7)
+				public void tc007() {
+					driver.get(Config.getProperty("url"));
+					TruliaHomePage testSeven = new TruliaHomePage(driver);
+					TruliaSearchPage searchTestSeven = new TruliaSearchPage(driver);
+					
+					testSeven.verifyTitle();
+					testSeven.searchBoxIsDisplayed();
+					testSeven.searchButtonExist();
+					testSeven.searchBox.clear();
+					Browser.sleep(1);
+					
+					testSeven.searchBox.sendKeys(Config.getProperty("tc7value"));
+					testSeven.searchBox.click();
+					
+				}	
 	
 }
