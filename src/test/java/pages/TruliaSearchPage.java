@@ -77,11 +77,11 @@ private WebDriver driver;
 	public void verifyBeds(String beds) {
 		List<WebElement> listings = driver.findElements(By.xpath("//li[@data-auto-test='beds']"));
 		for(WebElement each : listings) {
-			if(each.getText()!=Config.getProperty("tc4bed4")) {
-				System.out.println("This is a bug: " + each.getText());
+			if(each.getText().equals(Config.getProperty("tc4bed4"))) {
+				Assert.assertTrue(each.getText().contains(beds));				
 				continue;
 			}
-			Assert.assertTrue(each.getText().contains(beds));
+			System.out.println("This is a bug: " + each.getText());
 		}
 	}
 	
