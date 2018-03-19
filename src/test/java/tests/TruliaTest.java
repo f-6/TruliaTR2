@@ -1,10 +1,14 @@
 package tests;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,30 +43,78 @@ public class TruliaTest {
 		search.verifyTitleContains(Config.getProperty("city"));
 	}
 	
-//	@Test(priority=2)
-//	public void searchByZip() {
-//		driver.get(Config.getProperty("url"));
-//		TruliaHomePage searchByZip = new TruliaHomePage(driver);
-//		searchByZip.verifyTitle();
-//		searchByZip.searchBoxIsDisplayed();
-//		searchByZip.searchButtonExist();
-//		searchByZip.searchBox.clear();
-//		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
-//		Browser.sleep(1);
-//		searchByZip.printSearchSuggestions();
-//		searchByZip.searchBtn.click();
-//		TruliaSearchPage homeType = new TruliaSearchPage(driver);
-//		Browser.sleep(1);
-//		homeType.verifyTitleContains(Config.getProperty("tc2value"));
-//		homeType.homeTypeToggle.click();
-//		Browser.sleep(1);
-//		homeType.homeTypeLand.click();
-//		Browser.sleep(1);
-//		homeType.verifyLocationContains(Config.getProperty("tc2value"));
-//	}
-//	
-	
+	/**
+	 * @throws InterruptedException 
+	 * 
+	 */
 	@Test(priority = 2)
+	public void testCase001() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage tc1 = new TruliaHomePage(driver);
+		tc1.verifyTitle();
+		tc1.searchBox.click();
+		tc1.searchBox.sendKeys("Boston");
+		Browser.sleep(2);
+		List<WebElement> listOfCities = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
+		for(WebElement each : listOfCities) {
+			if(each.getText().equals("Boston, MA")) {
+				each.click();
+				break;
+			}
+		}
+		Browser.sleep(2);
+		TruliaSearchPage tc01=new TruliaSearchPage(driver);
+		tc01.verifyBostonTitle();
+		
+		driver.findElement(By.xpath("//button[@id='homeTypeToggle']")).click();
+		Browser.sleep(1);
+		
+		List<WebElement> listOfHomeTypes = driver.findElements(By.xpath("//span[@class='fieldItem checkbox']/label"));
+		
+		String homeTypes = Config.getProperty("homeTypes");
+		List<String> expectedHomeTypes = Arrays.asList(homeTypes.split(", "));
+		System.out.println(expectedHomeTypes);
+		for(WebElement each : listOfHomeTypes) {
+			System.out.print(each.getText()+" ");
+			Assert.assertTrue(expectedHomeTypes.contains(each.getText()));
+		}
+		
+		driver.findElement(By.xpath("//label[@for='homeType1']")).click();
+		Browser.sleep(1);
+		tc01.verifyLocationContainsBoston();
+		
+		Browser.sleep(2);
+		
+		tc01.verifyIfCondo();
+		Browser.sleep(2);
+
+	}
+
+	
+	@Test(priority=3)
+	public void searchByZip() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage searchByZip = new TruliaHomePage(driver);
+		searchByZip.verifyTitle();
+		searchByZip.searchBoxIsDisplayed();
+		searchByZip.searchButtonExist();
+		searchByZip.searchBox.clear();
+		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
+		Browser.sleep(1);
+		searchByZip.printSearchSuggestions();
+		searchByZip.searchBtn.click();
+		TruliaSearchPage homeType = new TruliaSearchPage(driver);
+		Browser.sleep(1);
+		homeType.verifyTitleContains(Config.getProperty("tc2value"));
+		homeType.homeTypeToggle.click();
+		Browser.sleep(1);
+		homeType.homeTypeLand.click();
+		Browser.sleep(1);
+		homeType.verifyLocationContains(Config.getProperty("tc2value"));
+	}
+	
+	
+	@Test(priority = 4)
 	public void tC004() {
 		driver.get(Config.getProperty("url"));
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -70,7 +122,7 @@ public class TruliaTest {
 		home.searchBoxIsDisplayed();
 		home.searchButtonExist();
 		home.searchBox.clear();
-		home.searchBox.sendKeys("Park Place");
+		home.searchBox.sendKeys(Config.getProperty("tc4val") + ", N");
 		Browser.sleep(2);
 		home.printSearchSuggestions();
 		home.selectFromSearchSuggestions(Config.getProperty("tc4value"));
@@ -81,14 +133,13 @@ public class TruliaTest {
 		searchButton.click();
 		Browser.sleep(2);
 		search.verifyTitle(Config.getProperty("tc4title"));
-		search.verifyLocationContains("Park Place");
+		search.verifyLocationContains(Config.getProperty("tc4val"));
 		search.allBedsBtnIsDisplayed();
 		search.allBedsBtn.click();
 		search.verifyAllBedOptions();
 		search.fourPlusBtn.click();
 		Browser.sleep(3);
 		search.verifyBeds(Config.getProperty("tc4bed4"));
-		
 	}
 	
 }

@@ -1,13 +1,17 @@
 package pages;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,7 +19,8 @@ import utilities.Browser;
 import utilities.Config;
 
 public class TruliaSearchPage {
-private WebDriver driver;
+	private WebDriver driver;
+	String handle;
 	
 	public TruliaSearchPage(WebDriver driver) {
 		this.driver = driver;
@@ -35,6 +40,73 @@ private WebDriver driver;
 	
 	@FindBy(xpath = "//div[@id='bedroomsButtonGroup']//button[.='4+']")
 	public WebElement fourPlusBtn;
+	
+	
+	@FindBy(xpath="//div[@class='xsColOffset4 smlColOffset4 mdColOffset4 lrgColOffset4 miniCol12 xsCol10 smlCol10  mdCol10 lrgCol10']//li[.=' Condo']")
+	public WebElement condo;
+	
+	@Test
+	public void verifyTitleContainsCity() {
+		Browser.sleep(1);
+		String expectedCity = Config.getProperty("city");
+		Assert.assertTrue(driver.getTitle().contains(expectedCity));
+	}
+	@Test
+	public void verifyLocationContainsCity() {
+		List<WebElement> listings = driver.findElements(By.xpath("//div[@class='typeTruncate typeLowlight']"));
+		for(WebElement each : listings) {
+			String expectedCity = Config.getProperty("city");
+			Assert.assertTrue(each.getText().contains(expectedCity));
+		}
+	}	
+	@Test
+	public void verifyBostonTitle() {
+		String expected = Config.getProperty("bostonTitle");
+		Assert.assertEquals(driver.getTitle(), expected);
+	}
+	@Test
+	public void verifyLocationContainsBoston() {
+		List<WebElement> listings = driver.findElements(By.xpath("//div[@id='resultsColumn']//div[@class='typeTruncate typeLowlight']"));
+		for(WebElement each : listings) {
+			String expectedCity = Config.getProperty("bostonCity");
+			Assert.assertTrue(each.getText().contains(expectedCity));
+		}
+	}
+	@Test
+	public void switchWindow() {
+		 handle = driver.getWindowHandle();
+		String newWindowHandle="";
+		Set<String> windowHandles = driver.getWindowHandles();
+		
+		// capture the handle of the tab which is not the current tab
+		for (String string : windowHandles) {
+			System.out.println(string);
+			if (!string.equals(handle)) {
+				newWindowHandle = string;
+			}
+		}
+				// switch to new window using the handle of the new window
+		driver.switchTo().window(newWindowHandle);
+	}
+	@Test
+	public void verifyIfCondo() {
+		List<String> result = new ArrayList();
+		List<WebElement> listings = driver.findElements(By.xpath("//div[@class='containerFluid']//li[@class='xsCol12Landscape smlCol12 lrgCol8']"));
+//		String handle = driver.getWindowHandle();
+		System.out.println("Size : "+listings.size());
+		for( WebElement each :listings) {
+			each.click();
+			switchWindow();
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement condoText = wait.until(ExpectedConditions.visibilityOf(condo));
+			result.add(condoText.getText());
+			driver.close();
+			driver.switchTo().window(handle);
+		}
+		Assert.assertTrue(result.contains("Condo"));
+	}
+	
+	
 	
 	@Test
 	public void verifyTitle(String title) {
