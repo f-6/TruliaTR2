@@ -39,30 +39,30 @@ public class TruliaTest {
 		search.verifyTitleContains(Config.getProperty("city"));
 	}
 	
-	@Test(priority=2)
-	public void searchByZip() {
-		driver.get(Config.getProperty("url"));
-		TruliaHomePage searchByZip = new TruliaHomePage(driver);
-		searchByZip.verifyTitle();
-		searchByZip.searchBoxIsDisplayed();
-		searchByZip.searchButtonExist();
-		searchByZip.searchBox.clear();
-		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
-		Browser.sleep(1);
-		searchByZip.printSearchSuggestions();
-		searchByZip.searchBtn.click();
-		TruliaSearchPage homeType = new TruliaSearchPage(driver);
-		Browser.sleep(1);
-		homeType.verifyTitleContains(Config.getProperty("tc2value"));
-		homeType.homeTypeToggle.click();
-		Browser.sleep(1);
-		homeType.homeTypeLand.click();
-		Browser.sleep(1);
-		homeType.verifyLocationContains(Config.getProperty("tc2value"));
-	}
+//	@Test(priority=2)
+//	public void searchByZip() {
+//		driver.get(Config.getProperty("url"));
+//		TruliaHomePage searchByZip = new TruliaHomePage(driver);
+//		searchByZip.verifyTitle();
+//		searchByZip.searchBoxIsDisplayed();
+//		searchByZip.searchButtonExist();
+//		searchByZip.searchBox.clear();
+//		searchByZip.searchBox.sendKeys(Config.getProperty("tc2value"));
+//		Browser.sleep(1);
+//		searchByZip.printSearchSuggestions();
+//		searchByZip.searchBtn.click();
+//		TruliaSearchPage homeType = new TruliaSearchPage(driver);
+//		Browser.sleep(1);
+//		homeType.verifyTitleContains(Config.getProperty("tc2value"));
+//		homeType.homeTypeToggle.click();
+//		Browser.sleep(1);
+//		homeType.homeTypeLand.click();
+//		Browser.sleep(1);
+//		homeType.verifyLocationContains(Config.getProperty("tc2value"));
+//	}
+//	
 	
-	
-	@Test(priority = 3)
+	@Test(priority = 2)
 	public void tC004() {
 		driver.get(Config.getProperty("url"));
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -71,17 +71,23 @@ public class TruliaTest {
 		home.searchButtonExist();
 		home.searchBox.clear();
 		home.searchBox.sendKeys("Park Place");
-		Browser.sleep(1);
+		Browser.sleep(2);
 		home.printSearchSuggestions();
 		home.selectFromSearchSuggestions(Config.getProperty("tc4value"));
 		Browser.sleep(3);
 		TruliaSearchPage search = new TruliaSearchPage(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dropdownBtn")));
+		WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(search.searchBtn));
 		searchButton.click();
-		Browser.sleep(1);
+		Browser.sleep(2);
 		search.verifyTitle(Config.getProperty("tc4title"));
 		search.verifyLocationContains("Park Place");
+		search.allBedsBtnIsDisplayed();
+		search.allBedsBtn.click();
+		search.verifyAllBedOptions();
+		search.fourPlusBtn.click();
+		Browser.sleep(3);
+		search.verifyBeds(Config.getProperty("tc4bed4"));
 		
 	}
 	
