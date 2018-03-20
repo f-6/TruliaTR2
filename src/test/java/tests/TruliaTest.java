@@ -116,9 +116,37 @@ public class TruliaTest {
 		homeType.verifyIfLand();
 	}
 
-	
-	
 	@Test(priority = 4)
+	public void tC003() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage home = new TruliaHomePage(driver);
+		home.verifyTitle();
+		home.searchBoxIsDisplayed();
+		home.searchButtonExist();
+		home.searchBox.clear();
+		home.searchBox.sendKeys("Washington, DC");
+		Browser.sleep(2);
+		home.printSearchSuggestions();
+		home.selectFromSearchSuggestions(Config.getProperty("tc3value"));
+		Browser.sleep(3);
+		TruliaSearchPage search = new TruliaSearchPage(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(search.searchBtn));
+		searchButton.click();
+		Browser.sleep(2);
+		search.verifyTitle(Config.getProperty("tc3title"));
+		search.verifyLocationContains("Washington, DC");
+		Browser.sleep(2);
+		search.allBedsBtnIsDisplayed();
+		search.allBedsBtn.click();
+		search.verifyAllBedOptions();
+		search.twoPlusBtn.click();
+		Browser.sleep(3);
+		search.verifyBeds(Config.getProperty("tc3bed2"));
+		
+	}
+	
+	@Test(priority = 5)
 	public void tC004() {
 		driver.get(Config.getProperty("url"));
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -147,7 +175,7 @@ public class TruliaTest {
 	}
 
 	//TESTCASE-5
-		@Test(priority=5)
+		@Test(priority=6)
 		public void tc005(){
 			driver.get(Config.getProperty("url"));
 			TruliaHomePage testFive = new TruliaHomePage(driver);
@@ -169,7 +197,7 @@ public class TruliaTest {
 		}
 		
 		//TESTCASE-6
-		@Test(priority=6)
+		@Test(priority=7)
 		public void tc006() {
 			driver.get(Config.getProperty("url"));
 			TruliaHomePage testSix = new TruliaHomePage(driver);
@@ -193,7 +221,7 @@ public class TruliaTest {
 		}
 		
 		//TESTCASE-7
-				@Test(priority=7)
+				@Test(priority=8)
 				public void tc007() {
 					driver.get(Config.getProperty("url"));
 					TruliaHomePage testSeven = new TruliaHomePage(driver);

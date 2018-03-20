@@ -41,6 +41,10 @@ public class TruliaSearchPage {
 	@FindBy(xpath = "//div[@id='bedroomsButtonGroup']//button[.='4+']")
 	public WebElement fourPlusBtn;
 	
+
+	@FindBy(xpath = "//div[@id='bedroomsButtonGroup']//button[.='2+']")
+	public WebElement twoPlusBtn;
+	
 	@FindBy(xpath="//a[.='Hyannis']")
 	public WebElement zipCity;
 	
