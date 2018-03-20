@@ -154,11 +154,11 @@ public class TruliaTest {
 		home.searchBoxIsDisplayed();
 		home.searchButtonExist();
 		home.searchBox.clear();
-		home.searchBox.sendKeys(Config.getProperty("tc4val") + ", N");
+		home.searchBox.sendKeys(Config.getProperty("tc4val") + ", Norfolk");
 		Browser.sleep(2);
 		home.printSearchSuggestions();
 		home.selectFromSearchSuggestions(Config.getProperty("tc4value"));
-		Browser.sleep(3);
+		Browser.sleep(2);
 		TruliaSearchPage search = new TruliaSearchPage(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(search.searchBtn));
