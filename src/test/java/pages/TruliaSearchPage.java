@@ -170,7 +170,6 @@ public class TruliaSearchPage {
 				Assert.assertTrue(each.getText().contains(beds));				
 				continue;
 			}
-			System.out.println("This is a bug: " + each.getText());
 		}
 	}
 	@Test
