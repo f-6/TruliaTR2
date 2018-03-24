@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -21,38 +22,97 @@ import utilities.Config;
 public class TruliaSearchPage {
 	private WebDriver driver;
 	String handle;
-	
+
 	public TruliaSearchPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
+	@FindBy(xpath="//li[@class='xsCol12Landscape smlCol12 lrgCol8']//span[@class='cardPrice h5 man pan typeEmphasize noWrap typeTruncate']")
+	public WebElement priceOnResult;
+
+	@FindBy(xpath="//button[@id='priceToggle']")
+	public WebElement priceButton;
+
+	@FindBy(xpath="//select[@id='minPrice']")
+	public WebElement minPrice;
+
+	@FindBy(xpath="//select[@id='maxPrice']")
+	public WebElement maxPrice;
+
 	@FindBy(id="homeTypeToggle")
 	public WebElement homeTypeToggle;
+
 	@FindBy(id="homeType4")
 	public WebElement homeTypeLand;
-	
+
 	@FindBy(xpath = "//div[@id='locationField']//button")
 	public WebElement searchBtn;
-	
+
 	@FindBy(id = "bedroomsToggle")
 	public WebElement allBedsBtn;
-	
+
 	@FindBy(xpath = "//div[@id='bedroomsButtonGroup']//button[.='4+']")
 	public WebElement fourPlusBtn;
-	
+
 
 	@FindBy(xpath = "//div[@id='bedroomsButtonGroup']//button[.='2+']")
 	public WebElement twoPlusBtn;
-	
+
 	@FindBy(xpath="//a[.='Hyannis']")
 	public WebElement zipCity;
-	
-	
+
+
 	@FindBy(xpath="//div[@class='xsColOffset4 smlColOffset4 mdColOffset4 lrgColOffset4 miniCol12 xsCol10 smlCol10  mdCol10 lrgCol10']//li[.=' Condo']")
 	public WebElement condo;
 	@FindBy(xpath="(//li[@class='miniHidden xxsHidden'])[2]")
 	public WebElement verifyIfLand;
+
+	@Test
+	public void priseButtonExist() {
+		Assert.assertTrue(priceButton.isDisplayed());
+	}
+
+	public void minNMaxPriceDisDisplayed() {
+		minPrice.isDisplayed();
+		maxPrice.isDisplayed();
+	}
+
+	public void printMinPriceOpts() {
+		Select selectMinPrice =new Select(minPrice);
+		List<WebElement> els=selectMinPrice.getOptions();
+		for (WebElement each : els) {
+			System.out.print(each.getText()+", ");
+			
+			if(each.getText().equals("$50k")) {
+				each.click();
+				break;
+			}
+		}
+	}
+	
+	public void printMaxPriceOpts() {
+		Select selectMinPrice =new Select(maxPrice);
+		List<WebElement> els=selectMinPrice.getOptions();
+		for (WebElement each : els) {
+			System.out.print(each.getText()+", ");
+
+			if(each.getText().equals("$100k")) {
+				each.click();
+				break;
+			}
+		}
+	}
+	
+	
+	public void verifyPrice(int min, int max) {
+		List<WebElement> listOfPrices = driver.findElements(By.xpath("//li[@class='xsCol12Landscape smlCol12 lrgCol8']//span[@class='cardPrice h5 man pan typeEmphasize noWrap typeTruncate']"));
+		for(WebElement each : listOfPrices) {
+			String s=each.getText().substring(1, each.getText().indexOf(","));
+			int x = Integer.parseInt(s);
+			Assert.assertTrue(x >= min && x < max);
+		}
+	}
+	
 	
 	@Test
 	public void verifyTitleContainsCity() {
@@ -69,6 +129,11 @@ public class TruliaSearchPage {
 		}
 	}	
 	@Test
+	public void verifyCityTitle(String city) {
+		String expected = city;
+		Assert.assertEquals(driver.getTitle(), expected);
+	}
+	@Test
 	public void verifyBostonTitle() {
 		String expected = Config.getProperty("bostonTitle");
 		Assert.assertEquals(driver.getTitle(), expected);
@@ -83,10 +148,10 @@ public class TruliaSearchPage {
 	}
 	@Test
 	public void switchWindow() {
-		 handle = driver.getWindowHandle();
+		handle = driver.getWindowHandle();
 		String newWindowHandle="";
 		Set<String> windowHandles = driver.getWindowHandles();
-		
+
 		// capture the handle of the tab which is not the current tab
 		for (String string : windowHandles) {
 			System.out.println(string);
@@ -94,14 +159,14 @@ public class TruliaSearchPage {
 				newWindowHandle = string;
 			}
 		}
-				// switch to new window using the handle of the new window
+		// switch to new window using the handle of the new window
 		driver.switchTo().window(newWindowHandle);
 	}
 	@Test
 	public void verifyIfCondo() {
 		List<String> result = new ArrayList();
 		List<WebElement> listings = driver.findElements(By.xpath("//div[@class='containerFluid']//li[@class='xsCol12Landscape smlCol12 lrgCol8']"));
-//		String handle = driver.getWindowHandle();
+		//		String handle = driver.getWindowHandle();
 		System.out.println("Size : "+listings.size());
 		for( WebElement each :listings) {
 			each.click();
@@ -114,22 +179,22 @@ public class TruliaSearchPage {
 		}
 		Assert.assertTrue(result.contains("Condo"));
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void verifyTitle(String title) {
 		Browser.sleep(1);
 		String expectedTitle = title;
 		Assert.assertEquals(driver.getTitle(), expectedTitle);
 	}
-	
+
 	@Test
 	public void verifyTitleContains(String location) {
 		Browser.sleep(1);
 		Assert.assertTrue(driver.getTitle().contains(location));
 	}
-	
+
 	//This Codes has codes related to Test-6's 
 	@Test
 	public void verifyLocationContains(String location) {
@@ -146,14 +211,14 @@ public class TruliaSearchPage {
 			Assert.assertTrue(actualCity.contains(expectedCity));
 		}	
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void allBedsBtnIsDisplayed() {
 		allBedsBtn.isDisplayed();
 	}
-	
+
 	@Test
 	public void verifyAllBedOptions() {
 		List<WebElement> bedsOPtion = driver.findElements(By.xpath("//div[@id='bedroomsButtonGroup']//button"));
@@ -161,7 +226,7 @@ public class TruliaSearchPage {
 		for(WebElement each : bedsOPtion)
 			Assert.assertTrue(expected.contains(each.getText()));
 	}
-	
+
 	@Test
 	public void verifyBeds(String beds) {
 		List<WebElement> listings = driver.findElements(By.xpath("//li[@data-auto-test='beds']"));
@@ -188,7 +253,7 @@ public class TruliaSearchPage {
 		}
 		Assert.assertTrue(result.contains("Lot/Land"));
 	}
-	
+
 	@Test
 	public void homeTypeToggleIsDisplayed() {
 		Assert.assertTrue(homeTypeToggle.isDisplayed());

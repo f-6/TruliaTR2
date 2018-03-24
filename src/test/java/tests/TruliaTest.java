@@ -116,7 +116,7 @@ public class TruliaTest {
 		homeType.verifyIfLand();
 	}
 
-	@Test(priority = 4)
+	@Test(priority = 4, enabled=false)
 	public void tC003() {
 		driver.get(Config.getProperty("url"));
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -146,7 +146,7 @@ public class TruliaTest {
 		
 	}
 	
-	@Test(priority = 5)
+	@Test(priority =5)
 	public void tC004() {
 		driver.get(Config.getProperty("url"));
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -197,7 +197,7 @@ public class TruliaTest {
 		}
 		
 		//TESTCASE-6
-		@Test(priority=7)
+		@Test(priority=7, enabled = false)
 		public void tc006() {
 			driver.get(Config.getProperty("url"));
 			TruliaHomePage testSix = new TruliaHomePage(driver);
@@ -211,8 +211,9 @@ public class TruliaTest {
 			testSix.searchButtonExist();
 			Browser.sleep(1);
 			testSix.searchBox.sendKeys(Config.getProperty("tc6value"));
-			Browser.sleep(1);
+			Browser.sleep(2);
 			testSix.selectFromSearchSuggestions(Config.getProperty("tc6value1"));
+			Browser.sleep(1);
 			testSix.searchBtn.click();
 			Browser.sleep(1);
 			searchTestSix.verifyTitleContains(Config.getProperty("tc6value1"));
@@ -237,5 +238,63 @@ public class TruliaTest {
 					testSeven.searchBox.click();
 					
 				}	
+				
+				
+	//Testcase-8
+
+
+
+	@Test(priority =9)
+	public void TC008() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage tc8 = new TruliaHomePage(driver);
+		TruliaSearchPage TC8 = new TruliaSearchPage(driver);
+		tc8.verifyTitle();
+		tc8.searchBoxIsDisplayed();
+		tc8.searchButtonExist();
+		Browser.sleep(1);
+		tc8.searchBox.click();
+		tc8.searchBox.sendKeys("Gaithersburg");
+		tc8.searchBtn.click();
+		Browser.sleep(1);
+		
+		TC8.verifyTitleContains(Config.getProperty("tc8City"));
+		TC8.priseButtonExist();
+		TC8.priceButton.click();
+		TC8.minNMaxPriceDisDisplayed();
+		TC8.printMinPriceOpts();
+		Browser.sleep(1);
+		TC8.printMaxPriceOpts();
+		TC8.verifyPrice(50, 100);
+	}
 	
+	@Test(priority =10)
+	public void TC009() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage tc9 = new TruliaHomePage(driver);
+		TruliaSearchPage TC9 = new TruliaSearchPage(driver);
+		tc9.verifyTitle();
+		tc9.searchBoxIsDisplayed();
+		tc9.searchButtonExist();
+		tc9.searchBox.click();
+		tc9.searchBox.sendKeys("Gaithersburg");
+		tc9.searchBtn.click();
+		Browser.sleep(1);
+		TC9.verifyTitleContains(Config.getProperty("tc8City"));
+	}
+	
+	@Test(priority =11)
+	public void TC010() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage tc10 = new TruliaHomePage(driver);
+		TruliaSearchPage TC10 = new TruliaSearchPage(driver);
+		tc10.verifyTitle();
+		tc10.searchBoxIsDisplayed();
+		tc10.searchButtonExist();
+		tc10.searchBox.click();
+		tc10.searchBox.sendKeys("Chicago");
+		tc10.searchBtn.click();
+		Browser.sleep(1);
+		TC10.verifyTitleContains(Config.getProperty("city"));
+	}
 }
