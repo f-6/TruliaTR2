@@ -73,7 +73,14 @@ public class TruliaSearchPage {
 	@FindBy(xpath="//h2[@data-reactid='3']")
 	public WebElement searchDoesNotMatch;
 	
+	@FindBy(xpath = "//div[@class='css-7k8yl0 miniCol21 xxsCol22 pan']")
+	public WebElement validZip;
 	
+	@FindBy(xpath = "//h6")
+	public WebElement resultQuantity;
+	
+	@FindBy(xpath = "//h2")
+	public WebElement resultMessages;
 	
 
 	@Test
@@ -289,6 +296,12 @@ public class TruliaSearchPage {
 		Assert.assertTrue(searchDoesNotMatch.isDisplayed());
 	}
 	
+	@Test
+	public void resultMessage() {
+		System.out.println(resultQuantity.getText());
+		Assert.assertTrue(resultQuantity.getText().contains("0"));
+		Assert.assertTrue(resultMessages.getText().contains(Config.getProperty("tc4bed4")));
+	}
 	
 	
 }
