@@ -66,6 +66,15 @@ public class TruliaSearchPage {
 	public WebElement condo;
 	@FindBy(xpath="(//li[@class='miniHidden xxsHidden'])[2]")
 	public WebElement verifyIfLand;
+	
+	@FindBy(xpath="//h6[@class='typeLowlight']")
+	public WebElement results;
+	
+	@FindBy(xpath="//h2[@data-reactid='3']")
+	public WebElement searchDoesNotMatch;
+	
+	
+	
 
 	@Test
 	public void priseButtonExist() {
@@ -192,6 +201,8 @@ public class TruliaSearchPage {
 	@Test
 	public void verifyTitleContains(String location) {
 		Browser.sleep(1);
+		System.out.println("Location: "+location);
+		System.out.println("Title: "+driver.getTitle());
 		Assert.assertTrue(driver.getTitle().contains(location));
 	}
 
@@ -258,4 +269,27 @@ public class TruliaSearchPage {
 	public void homeTypeToggleIsDisplayed() {
 		Assert.assertTrue(homeTypeToggle.isDisplayed());
 	}
+	
+	@Test
+	public void titleNotContains(String location) {
+		Browser.sleep(1);
+		Assert.assertTrue(!driver.getTitle().contains(location));
+	}
+	
+	
+	@Test
+	public void noResultsFound() {
+		String getNumber = results.getText().substring(0, results.getText().indexOf(" "));
+		int resultNumber = Integer.parseInt(getNumber);
+		Assert.assertTrue(resultNumber == 0);
+	}
+	
+	@Test 
+	public void verifySearchDoesNotMatch() {
+		Assert.assertTrue(searchDoesNotMatch.isDisplayed());
+	}
+	
+	
+	
 }
+	

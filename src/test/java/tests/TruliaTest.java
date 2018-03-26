@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,6 +31,7 @@ public class TruliaTest {
 	public void tearDown() {
 		Browser.quit();
 	}
+	
 	@Test(priority = 1, parameters="smoke")
 	public void searchByCity() {
 		TruliaHomePage home = new TruliaHomePage(driver);
@@ -220,29 +222,31 @@ public class TruliaTest {
 			Browser.sleep(1);
 			searchTestSix.verifyLocationContains(Config.getProperty("tc6value1"));
 		}
+				
+	//TESTCASE-7
+	@Test(priority=8, enabled=true)
+	public void tc007() {
+		driver.get(Config.getProperty("url"));
+		TruliaHomePage testSeven = new TruliaHomePage(driver);
+		TruliaSearchPage searchTestSeven = new TruliaSearchPage(driver);
+				
+		testSeven.verifyTitle();
+		testSeven.searchBoxIsDisplayed();
+		testSeven.searchButtonExist();
+		testSeven.searchBox.clear();
+		Browser.sleep(1);
+				
+		testSeven.searchBox.sendKeys(Config.getProperty("tc7value"));
+		testSeven.searchBtn.click();
+		Browser.sleep(1);
+				
+		searchTestSeven.titleNotContains(Config.getProperty("tc7value"));
+		searchTestSeven.noResultsFound();
+		searchTestSeven.verifySearchDoesNotMatch();	
+		Browser.sleep(1);
+	}
 		
-		//TESTCASE-7
-				@Test(priority=8)
-				public void tc007() {
-					driver.get(Config.getProperty("url"));
-					TruliaHomePage testSeven = new TruliaHomePage(driver);
-					TruliaSearchPage searchTestSeven = new TruliaSearchPage(driver);
-					
-					testSeven.verifyTitle();
-					testSeven.searchBoxIsDisplayed();
-					testSeven.searchButtonExist();
-					testSeven.searchBox.clear();
-					Browser.sleep(1);
-					
-					testSeven.searchBox.sendKeys(Config.getProperty("tc7value"));
-					testSeven.searchBox.click();
-					
-				}	
-				
-				
 	//Testcase-8
-
-
 
 	@Test(priority =9)
 	public void TC008() {
@@ -297,4 +301,118 @@ public class TruliaTest {
 		Browser.sleep(1);
 		TC10.verifyTitleContains(Config.getProperty("city"));
 	}
+	
+	
+	
+	
+			
+//TESTCASE-17
+@Test(priority=9, enabled=true)
+	public void tc017() {
+	driver.get(Config.getProperty("url"));
+		
+	TruliaHomePage testSeventeen = new TruliaHomePage(driver);
+	TruliaSearchPage searchTestSeventeen = new TruliaSearchPage(driver);
+	
+	testSeventeen.verifyTitle();
+	Browser.sleep(1);
+	testSeventeen.searchBoxIsDisplayed();
+	Browser.sleep(1);
+	testSeventeen.searchButtonExist();
+	Browser.sleep(1);
+	
+	testSeventeen.verifyBuyButton();
+	Browser.sleep(2);
+	testSeventeen.verifyRentButton();
+	Browser.sleep(2);
+	testSeventeen.verifySoldButton();
+	Browser.sleep(1);
+}
+								
+//TESTCASE-18
+@Test(priority=9, enabled=true)
+	public void tc018() {
+	driver.get(Config.getProperty("url"));
+	TruliaHomePage testEighteen = new TruliaHomePage(driver);
+	TruliaSearchPage searchTestEighteen = new TruliaSearchPage(driver);
+	
+	testEighteen.verifyTitle();
+	Browser.sleep(1);
+	testEighteen.searchBoxIsDisplayed();
+	testEighteen.searchButtonExist();
+	Browser.sleep(1);
+	testEighteen.verifyBuyButtonIsSelelected();
+	Browser.sleep(1);
+	
+	testEighteen.searchBox.clear();
+	Browser.sleep(1);
+	testEighteen.searchBox.sendKeys(Config.getProperty("tc18value"));
+	Browser.sleep(1);
+	
+	testEighteen.autoSuggestionPopup();
+	Browser.sleep(1);
+	testEighteen.searchSuggestionsHasAddress();
+	Browser.sleep(2);
+	testEighteen.chooseFromPopup.click();
+//	testEighteen.searchBtn.click();
+	
+	searchTestEighteen.verifyTitleContains(Config.getProperty("tc18value1"));
+	Browser.sleep(3);
+	
+	}
+
+
+//TESTCASE-19
+@Test(priority=10, enabled=true)
+	public void tc019() {
+	driver.get(Config.getProperty("url"));
+	TruliaHomePage testNineteen = new TruliaHomePage(driver);
+	TruliaSearchPage searchTestNineteen = new TruliaSearchPage(driver);
+	
+	testNineteen.verifyTitle();
+	testNineteen.searchBoxIsDisplayed();
+	Browser.sleep(1);
+	testNineteen.searchButtonExist();
+	testNineteen.verifyBuyButtonIsSelelected();
+	Browser.sleep(1);
+	
+	testNineteen.searchBox.clear();
+	Browser.sleep(1);
+	testNineteen.searchBox.sendKeys(Config.getProperty("tc19value"));
+	Browser.sleep(1);
+	testNineteen.searchBtn.click();
+	
+	searchTestNineteen.titleNotContains(Config.getProperty("tc19value"));
+	Browser.sleep(1);
+	searchTestNineteen.noResultsFound();
+	Browser.sleep(1);
+	searchTestNineteen.verifySearchDoesNotMatch();
+	Browser.sleep(1);
+	
+	}
+//TESTCASE-20
+@Test(priority=11)
+	public void tc020() {
+	driver.get(Config.getProperty("url"));
+	TruliaHomePage testNineteen = new TruliaHomePage(driver);
+	TruliaSearchPage searchTestNineteen = new TruliaSearchPage(driver);
+	Browser.sleep(1);
+	testNineteen.searchBox.clear();
+	testNineteen.searchBox.sendKeys(Config.getProperty("tc20value"));
+	
+	Browser.sleep(1);
+	testNineteen.autoSuggestionPopup();
+	testNineteen.searchSuggestionsHasNeigborhood();
+	Browser.sleep(1);
+	testNineteen.searchBtn.click();
+	
+	searchTestNineteen.verifyTitleContains(Config.getProperty("tc20value"));
+	Browser.sleep(1);
+	searchTestNineteen.verifyLocationContains(Config.getProperty("tc20value"));
+	
+	
+	}		
+	
+	
+	
 }

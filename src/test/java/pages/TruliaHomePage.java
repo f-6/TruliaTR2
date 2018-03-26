@@ -27,6 +27,53 @@ public class TruliaHomePage {
 	@FindBy(xpath="//button[@class='css-ejw4np btn btnPrimary']")
 	public WebElement searchBtn;
 	
+	@FindBy(xpath="//button[@class='css-aks6px btn btnLrg btnSecondary baz typeEmphasize pvs btnSelected']")
+	public WebElement buyBtn;
+	
+	@FindBy(xpath="//button[contains(text(),'Rent')]")
+	public WebElement rentBtn;
+	
+	@FindBy(xpath="//button[contains(text(),'Sold')]")
+	public WebElement soldBtn;
+	
+	@FindBy(xpath="//input[contains(@aria-haspopup,'true')]")
+	public WebElement autoSuggestPopedUp;
+	
+	@FindBy(xpath="//input[contains(@aria-haspopup,'false')]")
+	public WebElement autoSuggestNotPopedUp;
+	
+	@FindBy(xpath="//li[@id='react-autowhatever-1--item-0']")
+	public WebElement chooseFromPopup;
+	
+	@Test
+	public void verifyBuyButton() {
+		buyBtn.click();
+		Assert.assertTrue(buyBtn.isDisplayed());
+		Assert.assertEquals(buyBtn.getText() , "Buy"); //(Config.getProperty("tc17buyBtn")));
+		//Assert.assertTrue(buyBtn.isEnabled());
+	}
+	
+	@Test
+	public void verifyBuyButtonIsSelelected() {
+		Assert.assertTrue(buyBtn.isEnabled());
+	}
+	
+	@Test
+	public void verifyRentButton() {
+		rentBtn.click();
+		Assert.assertTrue(rentBtn.isDisplayed());
+		Assert.assertEquals(rentBtn.getText() , (Config.getProperty("tc17rentBtn")));
+		//Assert.assertTrue(rentBtn.isEnabled());
+	}
+	
+	@Test
+	public void verifySoldButton() {
+		soldBtn.click();
+		Assert.assertTrue(soldBtn.isDisplayed());
+		Assert.assertEquals(soldBtn.getText() , (Config.getProperty("tc17soldBtn")));
+		//Assert.assertTrue(soldBtn.isEnabled());
+	}
+	
 	@Test
 	public void verifyTitle() {
 		String expected = Config.getProperty("title");
@@ -40,6 +87,7 @@ public class TruliaHomePage {
 	public void searchButtonExist() {
 		Assert.assertTrue(searchBtn.isDisplayed());
 	}
+	
 	@Test
 	public void searchSuggestions() {
 		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='typeEmphasize typeTruncate']"));
@@ -62,6 +110,38 @@ public class TruliaHomePage {
 			}
 		}
 	}
+	
+	@Test
+	public void autoSuggestionPopup() {
+		String s = autoSuggestPopedUp.getAttribute("aria-haspopup");
+		Assert.assertTrue(s.equals("true"));
+	
+	}
+	
+	@Test
+	public void searchSuggestionsHasAddress() {
+		List<WebElement> checkAddress = driver.findElements(By.xpath("//div[@class='mediaImg mediaImgExt typeLowlight']"));
+		for (WebElement a : checkAddress) {
+			Assert.assertTrue(a.getText().equals(Config.getProperty("tc18address")));
+			
+		}
+	}
+	
+	@Test
+	public void searchSuggestionsHasNeigborhood() {
+		List<WebElement> checkAddress = driver.findElements(By.xpath("//div[@class='mediaImg mediaImgExt typeLowlight']"));
+		if(checkAddress.size() > 0){
+		for (WebElement a : checkAddress) {
+			Assert.assertEquals(a.getText() , (Config.getProperty("tc20neigborhood")));
+			
+		}
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 }
