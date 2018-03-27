@@ -170,7 +170,6 @@ public class TruliaSearchPage {
 
 		// capture the handle of the tab which is not the current tab
 		for (String string : windowHandles) {
-			System.out.println(string);
 			if (!string.equals(handle)) {
 				newWindowHandle = string;
 			}
