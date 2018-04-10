@@ -30,6 +30,7 @@ public class TruliaTest {
 	@AfterClass
 	public void tearDown() {
 		Browser.quit();
+		System.out.println("delete this is test");
 	}
 	
 	@Test(priority = 1, parameters="smoke")
